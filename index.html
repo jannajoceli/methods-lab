@@ -44,12 +44,17 @@ html{scroll-behavior:smooth}
 @media (max-width:600px){.ml .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
 .ml a:focus-visible{outline:2px solid #2D52E0;outline-offset:3px}
 
+.totop{position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:20;display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:12px 18px;background:#121212;color:#ffffff;text-decoration:none;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:14px;border-radius:4px;box-shadow:4px 4px 0 #2D52E0;transition:opacity 200ms ease,transform 200ms ease}
+.totop:hover{background:#2D52E0;color:#ffffff}
+.totop:focus-visible{outline:2px solid #2D52E0;outline-offset:3px}
+.totop.away{opacity:0;transform:translateY(8px);pointer-events:none}
+@media (prefers-reduced-motion: reduce){.totop{transition:none}}
 </style>
 </head>
 <body>
 <div class="ml" style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #121212; background: #ffffff; width: 100%">
 
-<header style="border-bottom: 1.5px solid #121212; background: #ffffff">
+<header id="top" style="border-bottom: 1.5px solid #121212; background: #ffffff">
 <div class="wrap" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; padding-top: 14px; padding-bottom: 14px">
 <div class="mono" style="font-size: 14px; color: #121212"><b>methods_lab</b><span class="cmt"> · Department of Digital Humanities · King’s College London</span></div>
 <nav class="nav" aria-label="Methods Lab sections" style="display: flex; flex-wrap: wrap; gap: 4px 22px">
@@ -218,5 +223,14 @@ html{scroll-behavior:smooth}
 </footer>
 
 </div>
+<a class="totop away" id="toTop" href="#top" aria-label="Back to top">↑ top</a>
+<script>
+(function(){
+  var b = document.getElementById('toTop');
+  function update(){ b.classList.toggle('away', window.scrollY < 500); }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
 </body>
 </html>
